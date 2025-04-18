@@ -1,0 +1,98 @@
+package RVT;
+
+import java.io.File;
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+public class BOM {
+	static ChromeDriver driver;
+	@Test
+	public void Bom() throws InterruptedException{
+		String driverPath = System.getProperty("user.dir")+File.separator+"DRivers"+File.separator+ "chromedriver.exe";
+		System.setProperty("webdriver.chrome.driver", driverPath);
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://r1132101364647-eu1-renaultlci-ifwe.3dexperience.3ds.com/#dashboard:0a92539a-f0ab-4afa-bcb5-44510a6fccfb/tab:Test1");
+		waitForElement(By.xpath("//div[contains(text(),'ENOVIA - Product Structure Editor')]"));
+		waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[1]"));
+		waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[1]"));
+		driver.switchTo().frame(waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[1]")));
+		WebElement doubleclick = waitForElement(By.xpath("//div[text()='prd-DXSRE701-00367875']"));
+		Actions act=new Actions(driver);
+		act.doubleClick(doubleclick).perform();
+		waitForElement(By.xpath("//div[@class='wux-layouts-treeview-expander']")).click();
+		waitForElement(By.xpath("(//div[@class='wux-layouts-treeview-expander'])[3]")).click();
+		waitForElement(By.xpath("//img[@id='iconAuthImg']")).click();
+		WebElement source=waitForElement(By.xpath("//div[text()='X8310_DMU']"));
+		source.click();
+		driver.switchTo().defaultContent();
+		driver.switchTo().frame(waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
+		WebElement target = waitForElement(By.xpath("//span[text()='Authoring Context']"));
+		Actions act2 = new Actions(driver);
+		Thread.sleep(20000);
+		waitForElement(By.xpath("//span[@class='v-chip__content'][normalize-space()='X8310_DMU : B<']")).click();
+		driver.switchTo().defaultContent();
+		waitForElement(By.xpath("//div[@id='m_A3anx1iA222VqL5xC002']//span[@class='fullscreen-icon ifwe-action-icon fonticon fonticon-resize-fullscreen clickable ']")).click();
+		driver.switchTo().frame(waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
+		WebElement scrollElement =waitForElement(By.xpath("//div[@class='ag-body-horizontal-scroll-viewport']"));
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("arguments[0].scrollLeft += 900;", scrollElement);	
+		Thread.sleep(5000);
+		WebElement plusIcon = waitForElement(By.xpath("(//i[@class='fa-regular fa-square-plus'])[4]"));
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", plusIcon);		
+		js.executeScript("arguments[0].scrollLeft += 700;", scrollElement);
+		Thread.sleep(10000);
+		WebElement SET=waitForElements(By.xpath("//button[@id='set']"));
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", SET);		
+		waitForElements(By.xpath("//span[normalize-space()='Reset']")).click();
+		waitForElements(By.xpath("//span[normalize-space()='Variant']")).click();
+		
+//		WebElement EA1 = waitForElement(By.xpath("//div[@class='ag-cell-value ag-cell ag-cell-not-inline-editing ag-cell-normal-height ag-column-last ag-cell-focus']//span[contains(text(),'☐')]"));
+//		
+//		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", EA1);
+//		EA1.click();
+		selectCheckBox("EA1");
+//		WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(10))
+//			    .until(ExpectedConditions.elementToBeClickable(
+//			        By.xpath("//span[text()='EA1']//parent::span//parent::div//parent::div//child::div[@role='gridcell']//child::span[@style='font-size: 17px;']")
+//			    ));
+		
+//			EA1.click();
+//		act2.clickAndHold(source)
+//		   .moveToElement(target)
+//		   .release(target)
+//		   .build()
+//		   .perform();
+//		act2.dragAndDrop(source, target).perform();
+//		act2.dragAndDropBy(source, 1000, 500).perform();
+
+//
+//		Actions action = new Actions(driver);
+//		action.clickAndHold(ele)
+
+		}
+
+		public static WebElement waitForElement(By element) {
+		    return new WebDriverWait(driver, Duration.ofSeconds(120)).until(ExpectedConditions.presenceOfElementLocated(element));
+		}
+		
+		public static WebElement waitForElements(By elements) {
+		    return new WebDriverWait(driver, Duration.ofSeconds(120))
+		        .until(ExpectedConditions.visibilityOfElementLocated(elements));
+		}
+		
+		public static void selectCheckBox(String name) {
+			driver.findElement(By.xpath("//span[text()='"+name+"']//parent::span//parent::div//parent::div//child::div[@role='gridcell']//child::span[@style='font-size: 17px;']")).click();
+		}
+	}
+	
+
+
