@@ -3903,3 +3903,15 @@ Caused by: org.codehaus.plexus.util.xml.pull.XmlPullParserException: Unrecognise
 2025-04-18 16:25:38,989 [Worker-48: Launching Executing test in C__Users_Public_Eclipse_workspace_Selenium_2024_OpenCartHybrid] INFO  o.eclipse.m2e.core.internal.Bundles - 	Entry: C:\Users\z036742\Downloads\eclipse-java-2023-12-R-win32-x86_64\eclipse\plugins\com.google.guava.failureaccess_1.0.2.jar
 2025-04-18 16:25:38,993 [Worker-48: Launching Executing test in C__Users_Public_Eclipse_workspace_Selenium_2024_OpenCartHybrid] INFO  o.e.m.i.launch.MavenLaunchDelegate - Run build in "C:\Users\Public\Eclipse_workspace\Selenium_2024\OpenCartHybrid":
 2025-04-18 16:25:38,994 [Worker-48: Launching Executing test in C__Users_Public_Eclipse_workspace_Selenium_2024_OpenCartHybrid] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -B -Dstyle.color=always test
+2025-04-18 18:20:47,233 [Worker-70: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-04-18 18:20:47,235 [Worker-70: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\Public\Eclipse_workspace\Selenium_2024\Seleniumjava\src\test\resources
+2025-04-18 18:20:59,058 [Worker-73: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-04-18 18:20:59,060 [Worker-73: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\Public\Eclipse_workspace\Selenium_2024\Seleniumjava\src\test\resources
+2025-04-18 18:21:27,776 [Worker-73: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-04-18 18:21:27,778 [Worker-73: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\Public\Eclipse_workspace\Selenium_2024\Seleniumjava\src\test\resources
+2025-04-18 18:21:45,258 [Worker-71: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-04-18 18:21:45,260 [Worker-71: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\Public\Eclipse_workspace\Selenium_2024\Seleniumjava\src\test\resources
+2025-04-18 18:22:31,892 [Worker-72: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-04-18 18:22:31,894 [Worker-72: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\Public\Eclipse_workspace\Selenium_2024\Seleniumjava\src\test\resources
+2025-04-18 18:22:42,000 [Worker-73: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-04-18 18:22:42,001 [Worker-73: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\Public\Eclipse_workspace\Selenium_2024\Seleniumjava\src\test\resources
