@@ -29,6 +29,7 @@ public class SlederDemo {
 		Actions act =new Actions(driver);
 		act.dragAndDropBy(max_loc, -110, 294).perform();
 		System.out.println("location after move"+max_loc.getLocation()); //(653, 294) (x, y)
+		driver.quit();
 
 		
 		

@@ -104,6 +104,5 @@
         <artifactId>commons-compress</artifactId>
         <version>1.23.0</version> <!-- Use the latest version -->
     </dependency>
-
   </dependencies>
 </project>

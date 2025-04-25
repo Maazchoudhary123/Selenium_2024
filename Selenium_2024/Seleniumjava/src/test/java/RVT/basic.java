@@ -1,12 +1,14 @@
 package RVT;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.time.Duration;
 import java.util.concurrent.TimeoutException;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +20,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class basic {
-
+	static ChromeDriver driver;
 	public static void main(String[] args) throws Exception {
 
 		WebDriver driver = new ChromeDriver();
@@ -35,7 +37,8 @@ public class basic {
 //		    driver.quit();
 			WebElement frame = myWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[1]")));
 			driver.switchTo().frame(frame);
-			WebElement Doubleclick=myWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='prd-DXSRE701-00367875']")));
+			WebElement Doubleclick=waitForElement(By.xpath("//div[text()='prd-DXSRE701-00367875']"));
+//			WebElement Doubleclick=myWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='prd-DXSRE701-00367875']")));
 			Actions act=new Actions(driver);
 			act.doubleClick(Doubleclick).perform();
 			  WebElement acceptAllButton = myWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='wux-layouts-treeview-expander']")));
@@ -53,12 +56,54 @@ public class basic {
 			
 			
 //DRAG AND DROP
-			WebElement cap1=myWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='X8310_DMU']")));
-			driver.switchTo().defaultContent();
-			WebElement frame2 = myWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
+			
+			
+			
+			// Wait for and switch to the correct frame if needed
+			WebElement frame2 = myWait.until(ExpectedConditions.presenceOfElementLocated(
+			    By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
 			driver.switchTo().frame(frame2);
-			WebElement widget=driver.findElement(By.xpath("//span[text()='Authoring Context']"));
-			act.dragAndDrop(cap1, widget).perform();
+			driver.switchTo().defaultContent();
+
+			// Wait for both elements to be interactable
+			WebElement cap1 = myWait.until(ExpectedConditions.elementToBeClickable(
+			    By.xpath("//div[text()='X8310_DMU']")));
+			WebElement widget = myWait.until(ExpectedConditions.elementToBeClickable(
+			    By.xpath("//span[text()='Authoring Context']")));
+
+			// Alternative 1: Standard drag and drop
+			Actions actw = new Actions(driver);
+			actw.clickAndHold(cap1)
+			   .moveToElement(widget)
+			   .release()
+			   .build()
+			   .perform();
+
+			// Alternative 2: JavaScript approach if above fails
+			((JavascriptExecutor)driver).executeScript(
+			    "function createEvent(typeOfEvent) {" +
+			    "var event = document.createEvent(\"CustomEvent\");" +
+			    "event.initCustomEvent(typeOfEvent,true,true,null);" +
+			    "event.dataTransfer = {data:{},setData:function(key,value){this.data[key]=value;}," +
+			    "getData:function(key){return this.data[key];}};return event;}" +
+			    "function dispatchEvent(element,event,transferData){" +
+			    "if(transferData!==undefined){event.dataTransfer=transferData;}" +
+			    "if(element.dispatchEvent){element.dispatchEvent(event);}" +
+			    "else if(element.fireEvent){element.fireEvent(\"on\"+event.type,event);}}" +
+			    "function simulateHTML5DragAndDrop(dragElement,dropElement){" +
+			    "var dragStartEvent=createEvent('dragstart');dispatchEvent(dragElement,dragStartEvent);" +
+			    "var dropEvent=createEvent('drop');dispatchEvent(dropElement,dropEvent,dragStartEvent.dataTransfer);" +
+			    "var dragEndEvent=createEvent('dragend');dispatchEvent(dragElement,dragEndEvent,dropEvent.dataTransfer);}" +
+			    "simulateHTML5DragAndDrop(arguments[0],arguments[1]);", 
+			    cap1, widget);
+			
+			
+//			WebElement cap1=myWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='X8310_DMU']")));
+////			driver.switchTo().defaultContent();
+////			WebElement frame2 = myWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
+////			driver.switchTo().frame(frame2);
+//			WebElement widget=driver.findElement(By.xpath("//span[text()='Authoring Context']"));
+//			act.dragAndDrop(cap1, widget).perform();
 			
 //			// Wait for the source element to be clickable and locate it
 //			WebElement cap1 = myWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='X8310_DMU']")));
@@ -96,10 +141,13 @@ public class basic {
 		
 			
 		}
-	
-
-	
-
+	}
+		
+		public static WebElement waitForElement(By element) {
+		    return new WebDriverWait(driver, Duration.ofSeconds(120)).until(ExpectedConditions.visibilityOfElementLocated(element));
+		}
 	}
 
-}
+	
+
+

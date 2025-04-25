@@ -25,6 +25,7 @@ public class DragandDrop {
 		WebElement drag2=driver.findElement(By.xpath("//div[@id='box3']"));
 		WebElement ita=driver.findElement(By.xpath("//div[@id='box103']"));
 		act.dragAndDrop(drag2, ita).perform();
+		driver.quit();
 		
 
 	}

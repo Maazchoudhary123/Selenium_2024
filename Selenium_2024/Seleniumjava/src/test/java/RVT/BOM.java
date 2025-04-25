@@ -5,6 +5,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -18,8 +19,11 @@ public class BOM {
 	public void Bom() throws InterruptedException{
 		String driverPath = System.getProperty("user.dir")+File.separator+"DRivers"+File.separator+ "chromedriver.exe";
 		System.setProperty("webdriver.chrome.driver", driverPath);
+
 		driver = new ChromeDriver();
+		WebDriverWait myWait = new WebDriverWait(driver, Duration.ofSeconds(80));
 		driver.manage().window().maximize();
+		
 		driver.get("https://r1132101364647-eu1-renaultlci-ifwe.3dexperience.3ds.com/#dashboard:0a92539a-f0ab-4afa-bcb5-44510a6fccfb/tab:Test1");
 		waitForElement(By.xpath("//div[contains(text(),'ENOVIA - Product Structure Editor')]"));
 		waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[1]"));
@@ -27,57 +31,109 @@ public class BOM {
 		driver.switchTo().frame(waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[1]")));
 		WebElement doubleclick = waitForElement(By.xpath("//div[text()='prd-DXSRE701-00367875']"));
 		Actions act=new Actions(driver);
+		
 		act.doubleClick(doubleclick).perform();
 		waitForElement(By.xpath("//div[@class='wux-layouts-treeview-expander']")).click();
 		waitForElement(By.xpath("(//div[@class='wux-layouts-treeview-expander'])[3]")).click();
 		waitForElement(By.xpath("//img[@id='iconAuthImg']")).click();
-		WebElement source=waitForElement(By.xpath("//div[text()='X8310_DMU']"));
-		source.click();
-		driver.switchTo().defaultContent();
-		driver.switchTo().frame(waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
-		WebElement target = waitForElement(By.xpath("//span[text()='Authoring Context']"));
-		Actions act2 = new Actions(driver);
-		Thread.sleep(20000);
-		waitForElement(By.xpath("//span[@class='v-chip__content'][normalize-space()='X8310_DMU : B<']")).click();
-		driver.switchTo().defaultContent();
-		waitForElement(By.xpath("//div[@id='m_A3anx1iA222VqL5xC002']//span[@class='fullscreen-icon ifwe-action-icon fonticon fonticon-resize-fullscreen clickable ']")).click();
-		driver.switchTo().frame(waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
-		WebElement scrollElement =waitForElement(By.xpath("//div[@class='ag-body-horizontal-scroll-viewport']"));
-		JavascriptExecutor js = (JavascriptExecutor)driver;
-		js.executeScript("arguments[0].scrollLeft += 900;", scrollElement);	
-		Thread.sleep(5000);
-		WebElement plusIcon = waitForElement(By.xpath("(//i[@class='fa-regular fa-square-plus'])[4]"));
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", plusIcon);		
-		js.executeScript("arguments[0].scrollLeft += 700;", scrollElement);
-		Thread.sleep(10000);
-		WebElement SET=waitForElements(By.xpath("//button[@id='set']"));
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", SET);		
-		waitForElements(By.xpath("//span[normalize-space()='Reset']")).click();
-		waitForElements(By.xpath("//span[normalize-space()='Variant']")).click();
 		
-		WebElement EA2 = waitForElement(By.xpath("//span[text()='L1C']"));
 		
-		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", EA2);
-//		EA2.click();
-		Thread.sleep(2000);
-		selectCheckBox("EA1");
-//		WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(10))
-//			    .until(ExpectedConditions.elementToBeClickable(
-//			        By.xpath("//span[text()='EA1']//parent::span//parent::div//parent::div//child::div[@role='gridcell']//child::span[@style='font-size: 17px;']")
-//			    ));
-		
-//			EA1.click();
-//		act2.clickAndHold(source)
-//		   .moveToElement(target)
-//		   .release(target)
-//		   .build()
-//		   .perform();
-//		act2.dragAndDrop(source, target).perform();
-//		act2.dragAndDropBy(source, 1000, 500).perform();
+//		
+//		WebElement frame2 = myWait.until(ExpectedConditions.presenceOfElementLocated(
+//			    By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
+//			driver.switchTo().frame(frame2);
 
+//			 Wait for both elements to be interactable
+			WebElement cap1 = myWait.until(ExpectedConditions.elementToBeClickable(
+			By.xpath("//div[text()='Evolution']")));
+			
+//			WebElement frame2 = myWait.until(ExpectedConditions.presenceOfElementLocated(
+//		    By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
+//			driver.switchTo().frame(frame2);
+				
+			waitForElement(By.xpath("//button[@type=\"button\" and @class=\"wux-windows-window-header-button wux-windows-window-header-close wux-ui-3ds wux-ui-3ds-wrong\"]")).click();
+			WebElement widget = myWait.until(ExpectedConditions.elementToBeClickable(
+			By.xpath("//div[text()='STOP-DOOR,FR']")));
+			waitForElement(By.xpath("//img[@id='iconAuthImg']")).click();
+
+//			driver.switchTo().defaultContent();
+//			driver.switchTo().frame(waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[1]")));
+			
+			// Alternative 1: Standard drag and drop
+			Actions actw = new Actions(driver);
+			actw.dragAndDrop(cap1, widget);
+
+
+
+		
+		
+		
+//		
+//		waitForElement(By.xpath("//div[@class=\"wux-windows-window-header-buttons-div\"]")).click();
+//		WebElement PP=waitForElement(By.xpath("(//div[@class=\"wux-layouts-datagridview-tweaker-container\"])[6]"));
+//		
+//		Actions rightact=new Actions(driver);
+//		rightact.contextClick(PP).perform();
+//		waitForElement(By.xpath("//span[text()='Edit']")).click();
+//		waitForElement(By.xpath("//div[@data-command=\"ENONewProductHdr\"]")).click();
+//		WebElement element= waitForElement(By.xpath(("(//input[@placeholder='Enter a value'])[1]")));
+//		
+//		element.clear();
+//		Thread.sleep(2000);
+//		element.sendKeys("PPSelenium");
+//		waitForElement(By.xpath("//span[text()='Create']")).click();
+
+		
+		
+		
+		
+//		WebElement source=waitForElement(By.xpath("//div[text()='X8310_DMU']"));
+//		source.click();
+//		driver.switchTo().defaultContent();
+//		driver.switchTo().frame(waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
+//		WebElement target = waitForElement(By.xpath("//span[text()='Authoring Context']"));
+//		Actions act2 = new Actions(driver);
+//		Thread.sleep(20000);
+//		waitForElement(By.xpath("//span[@class='v-chip__content'][normalize-space()='X8310_DMU : B<']")).click();
+//		driver.switchTo().defaultContent();
+//		waitForElement(By.xpath("//div[@id='m_A3anx1iA222VqL5xC002']//span[@class='fullscreen-icon ifwe-action-icon fonticon fonticon-resize-fullscreen clickable ']")).click();
+//		driver.switchTo().frame(waitForElement(By.xpath("(//iframe[contains(@id,'frame-A3anx')])[2]")));
+//		WebElement scrollElement =waitForElement(By.xpath("//div[@class='ag-body-horizontal-scroll-viewport']"));
+//		JavascriptExecutor js = (JavascriptExecutor)driver;
+//		js.executeScript("arguments[0].scrollLeft += 900;", scrollElement);	
+//		Thread.sleep(5000);
+//		WebElement plusIcon = waitForElement(By.xpath("(//i[@class='fa-regular fa-square-plus'])[4]"));
+//		((JavascriptExecutor)driver).executeScript("arguments[0].click();", plusIcon);		
+//		js.executeScript("arguments[0].scrollLeft += 700;", scrollElement);
+//		Thread.sleep(10000);
+//		WebElement SET=waitForElements(By.xpath("//button[@id='set']"));
+//		((JavascriptExecutor)driver).executeScript("arguments[0].click();", SET);		
+//		waitForElements(By.xpath("//span[normalize-space()='Reset']")).click();
+//		waitForElements(By.xpath("//span[normalize-space()='Variant']")).click();
+//		
+//		WebElement EA2 = waitForElement(By.xpath("//span[text()='L1C']"));
+//		
+//		((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", EA2);
+////		EA2.click();
+//		Thread.sleep(2000);
+//		selectCheckBox("EA1");
+////		WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(10))
+////			    .until(ExpectedConditions.elementToBeClickable(
+////			        By.xpath("//span[text()='EA1']//parent::span//parent::div//parent::div//child::div[@role='gridcell']//child::span[@style='font-size: 17px;']")
+////			    ));
+//		
+////			EA1.click();
+////		act2.clickAndHold(source)
+////		   .moveToElement(target)
+////		   .release(target)
+////		   .build()
+////		   .perform();
+////		act2.dragAndDrop(source, target).perform();
+////		act2.dragAndDropBy(source, 1000, 500).perform();
 //
-//		Actions action = new Actions(driver);
-//		action.clickAndHold(ele)
+////
+////		Actions action = new Actions(driver);
+////		action.clickAndHold(ele)
 
 		}
 

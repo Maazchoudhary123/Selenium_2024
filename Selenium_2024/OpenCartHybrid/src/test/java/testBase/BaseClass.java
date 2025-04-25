@@ -32,6 +32,7 @@ public class BaseClass {
 	public static WebDriver driver;
 	public Logger logger;
 	public Properties p;
+	
 	@BeforeClass(groups={"Sanity","Regression","Master"})
 	public void setup() throws IOException {
 		FileReader file=new FileReader(".//src//test//resources//config.properties");
